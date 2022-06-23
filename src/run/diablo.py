@@ -211,7 +211,7 @@ class Diablo:
                 Logger.debug("CS TRASH: Killing Trash at: aisle_3")
                 self._char.dia_kill_trash("aisle_3")
 
-            if not self._pather.traverse_nodes_automap([1505], self._char): return False
+            if not self._pather.traverse_nodes_automap([1505], self._char): return False #pickit inv check
             Logger.debug("CS TRASH: Killing Trash at: aisle_4")
             self._char.dia_kill_trash("aisle_4")
 
@@ -235,13 +235,13 @@ class Diablo:
             Logger.debug("CS TRASH: Killing Trash at: to_hall2_1")
             self._char.dia_kill_trash("to_hall2_1")
 
-            if not self._pather.traverse_nodes_automap([1511], self._char): return False
+            if not self._pather.traverse_nodes_automap([1511], self._char): return False #pickit inv check
             Logger.debug("CS TRASH: Killing Trash at: to_hall2_2")
             self._char.dia_kill_trash("to_hall2_2")
 
-            if not self._pather.traverse_nodes_automap([1512], self._char): return False
-            Logger.debug("CS TRASH: Killing Trash at: to_hall2_3")
-            self._char.dia_kill_trash("to_hall2_3")
+            #if not self._pather.traverse_nodes_automap([1512], self._char): return False # can be skipped
+            #Logger.debug("CS TRASH: Killing Trash at: to_hall2_3")
+            #self._char.dia_kill_trash("to_hall2_3")
 
             if not self._pather.traverse_nodes_automap([1513], self._char): return False
             Logger.debug("CS TRASH: Killing Trash at: to_hall2_4")
@@ -263,13 +263,13 @@ class Diablo:
             Logger.debug("CS TRASH: Killing Trash at: hall2_4")
             self._char.dia_kill_trash("hall2_4")
 
-            if not self._pather.traverse_nodes_automap([1516,1514,1518], self._char): return False
+            if not self._pather.traverse_nodes_automap([1516,1514,1518], self._char): return False #pickit inv check
             Logger.debug("CS TRASH: Killing Trash at: to_hall3_1")
             self._char.dia_kill_trash("to_hall3_1")
 
-            if not self._pather.traverse_nodes_automap([1519], self._char): return False
-            Logger.debug("CS TRASH: Killing Trash at: to_hall3_2")
-            self._char.dia_kill_trash("to_hall3_2")
+            #if not self._pather.traverse_nodes_automap([1519], self._char): return False # can be skipped
+            #Logger.debug("CS TRASH: Killing Trash at: to_hall3_2")
+            #self._char.dia_kill_trash("to_hall3_2")
 
             if not self._pather.traverse_nodes_automap([1520], self._char): return False
             Logger.debug("CS TRASH: Killing Trash at: to_hall3_3")
@@ -368,7 +368,7 @@ class Diablo:
             Logger.debug("CS TRASH: Killing Trash at: trash_to_a3")
             self._char.dia_kill_trash("trash_to_a3")
 
-            if not self._pather.traverse_nodes_automap([1529], self._char): return False
+            if not self._pather.traverse_nodes_automap([1529], self._char): return False #pickit inv check
             Logger.debug("CS TRASH: Killing Trash at: trash_to_a4")
             self._char.dia_kill_trash("trash_to_a4")
 
@@ -568,7 +568,7 @@ class Diablo:
             Logger.debug("CS TRASH: Killing Trash at: approach_b1s")
             self._char.dia_kill_trash("approach_b1s")
 
-            if not self._pather.traverse_nodes_automap([1638], self._char): return False
+            if not self._pather.traverse_nodes_automap([1638], self._char): return False #clear inv
             Logger.debug("CS TRASH: Killing Trash at: approach_b2u")
             self._char.dia_kill_trash("approach_b2u")
 
@@ -770,7 +770,7 @@ class Diablo:
             Logger.debug("CS TRASH: Killing Trash at: trash_to_c3")
             self._char.dia_kill_trash("trash_to_c3")
 
-            if not self._pather.traverse_nodes_automap([1648], self._char): return False
+            if not self._pather.traverse_nodes_automap([1648], self._char): return False # cs pickit
             Logger.debug("CS TRASH: Killing Trash at: approach_c2g")
             self._char.dia_kill_trash("approach_c2g")
 

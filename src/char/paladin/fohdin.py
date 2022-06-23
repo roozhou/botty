@@ -150,6 +150,7 @@ class FoHdin(Paladin):
 
         return True
 
+
     def kill_eldritch(self) -> bool:
         eld_pos_abs = convert_screen_to_abs(Config().path["eldritch_end"][0])
         atk_len_dur = float(Config().char["atk_len_eldritch"])
@@ -204,6 +205,7 @@ class FoHdin(Paladin):
         self._activate_cleanse_redemption()
         return True
 
+
     def kill_summoner(self) -> bool:
         # Attack
         atk_len_dur = Config().char["atk_len_arc"]
@@ -220,14 +222,16 @@ class FoHdin(Paladin):
 
         match location:
             
-            case "sealdance" | "layoutcheck_a" | "layoutcheck_b" | "layoutcheck_c" | "pent_before_a" | "pent_before_b" | "pent_before_c" | "outside_cs" | "outside_cs_stairs" | "aisle_1" | "aisle_2" | "aisle_3" | "aisle_4" | "hall1_1" | "hall1_2" | "hall1_3" | "hall1_4" | "to_hall2_1" | "to_hall2_2" | "to_hall2_3" | "to_hall2_4" | "hall2_1" | "hall2_2" | "hall2_3" | "hall2_4" | "to_hall3_1" | "to_hall3_2" | "to_hall3_3" | "hall3_1" | "hall3_2" | "hall3_3" | "hall3_4" | "hall3_5" | "trash_to_a1" | "trash_to_a2" | "trash_to_a3" |  "trash_to_a4" | "a_boss" | "trash_to_b1" | "trash_to_b2" | "trash_to_b3" | "trash_to_b4" | "approach_b1s" | "approach_b2u" | "b_boss" | "b_seal" | "trash_to_c1" | "trash_to_c2" | "trash_to_c3" | "approach_c2g" | "fake_c2g": #automap
-                ### APPROACH ###
-                ### ATTACK ###
+            case "sealdance" | "layoutcheck_a" | "layoutcheck_b" | "layoutcheck_c" | "pent_before_a" | "pent_before_b" | "pent_before_c" | "outside_cs" | "outside_cs_stairs" | "aisle_1" | "aisle_2" | "aisle_3" | "aisle_4" | "hall1_1" | "hall1_2" | "hall1_3" | "hall1_4" | "to_hall2_1" | "to_hall2_2" | "to_hall2_3" | "to_hall2_4" | "hall2_1" | "hall2_2" | "hall2_3" | "hall2_4" | "to_hall3_1" | "to_hall3_2" | "to_hall3_3" | "hall3_1" | "hall3_2" | "hall3_3" | "hall3_4" | "hall3_5" | "trash_to_a1" | "trash_to_a2" | "trash_to_a3" |  "trash_to_a4" | "a_boss" | "trash_to_b1" | "trash_to_b2" | "trash_to_b3" | "trash_to_b4" | "approach_b1s" | "approach_b2u" | "b_boss" | "b_seal" | "trash_to_c1" | "trash_to_c2" | "trash_to_c3" | "approach_c2g" | "fake_c2g":
                 self._cs_trash_mobs_attack_sequence()
-                ### LOOT ###
-                self._cs_pickit()
+                self._picked_up_items |= self._pickit.pick_up_items(self)
+
+            # at these spots (and after each seal boss) checks if inv is full and discards items
+            case "aisle_4" | "to_hall2_2" | "to_hall3_1" | "trash_to_a4" | "approach_b2u" | "approach_c2g":
+                self._cs_trash_mobs_attack_sequence()
+                self._cs_pickit() 
             
-            # Fear each seal-area: 3 positions to start fights & loot (triggered in diablo.py), followed by 1 position for each seal.
+            # For each seal-area: 3 positions to start fights & loot (triggered in diablo.py), followed by 1 position for each seal.
 
             case "A1-L_01" | "A1-L_02" | "A1-L_03" | "A1-L_seal1" | "A1-L_seal2":
                 ### APPROACH ###
@@ -277,152 +281,7 @@ class FoHdin(Paladin):
                 self._cs_pickit()
                 return True
 
-
-    def kill_vizier(self, seal_layout:str) -> bool:
-        atk_dur_min = Config().char["atk_len_diablo_vizier"]
-        atk_dur_max = atk_dur_min * 3
-        match seal_layout:
-            case "A1-L":
-                ### APPROACH ###
-                if not self._pather.traverse_nodes([612], self): return False # , timeout=3):
-                ### ATTACK ###
-                Logger.debug(seal_layout + ": Attacking Vizier at position 1/2")
-                self._cs_attack_sequence(min_duration=atk_dur_min, max_duration=atk_dur_max)
-                Logger.debug(seal_layout + ": Attacking Vizier at position 2/2")
-                self._pather.traverse_nodes([611], self, timeout=3)
-                self._cs_attack_sequence(min_duration=2, max_duration=atk_dur_max)
-                ### LOOT ###
-                self._cs_pickit(skip_inspect=True)
-                if not self._pather.traverse_nodes([612], self): return False # , timeout=3):
-                self._activate_cleanse_redemption()
-                self._cs_pickit()
-                if not self._pather.traverse_nodes([612], self): return False # , timeout=3): # recalibrate after loot
-
-            case "A2-Y":
-                ### APPROACH ###
-                if not self._pather.traverse_nodes([627, 622], self): return False # , timeout=3):
-                ### ATTACK ###
-                Logger.debug(seal_layout + ": Attacking Vizier at position 1/3")
-                self._cs_attack_sequence(min_duration=atk_dur_min, max_duration=atk_dur_max)
-                Logger.debug(seal_layout + ": Attacking Vizier at position 2/3")
-                self._pather.traverse_nodes([623], self, timeout=3)
-                self._cs_attack_sequence(min_duration=1.5, max_duration=atk_dur_max)
-                Logger.debug(seal_layout + ": Attacking Vizier at position 3/3")
-                if not self._pather.traverse_nodes([624], self): return False
-                self._cs_attack_sequence(min_duration=1.5, max_duration=atk_dur_max)
-                ### LOOT ###
-                self._cs_pickit(skip_inspect=True)
-                if not self._pather.traverse_nodes([624], self): return False
-                if not self._pather.traverse_nodes_fixed("dia_a2y_hop_622", self): return False
-                Logger.debug(seal_layout + ": Hop!")
-                self._activate_cleanse_redemption()
-                if not self._pather.traverse_nodes([622], self): return False #, timeout=3):
-                self._activate_redemption_aura()
-                self._cs_pickit()
-                if not self._pather.traverse_nodes([622], self): return False # , timeout=3): #recalibrate after loot
-
-            case _:
-                Logger.warning(seal_layout + ": Invalid location for kill_vizier("+ seal_layout +"), should not happen.")
-                return False
-        return True
-
-
-    def kill_deseis(self, seal_layout:str) -> bool:
-        atk_dur_min = Config().char["atk_len_diablo_deseis"]
-        atk_dur_max = atk_dur_min * 3
-        match seal_layout:
-            case "B1-S":
-                ### APPROACH ###
-                self._pather.traverse_nodes_fixed("dia_b1s_seal_deseis_foh", self)
-                nodes = [631]
-                ### ATTACK ###
-                Logger.debug(f"{seal_layout}: Attacking De Seis at position 1/{len(nodes)+1}")
-                self._cs_attack_sequence(min_duration=atk_dur_min, max_duration=atk_dur_max)
-                for i, node in enumerate(nodes):
-                    Logger.debug(f"{seal_layout}: Attacking De Seis at position {i+2}/{len(nodes)+1}")
-                    self._pather.traverse_nodes([node], self, timeout=3)
-                    self._cs_attack_sequence(min_duration=atk_dur_min, max_duration=atk_dur_max)
-                self._activate_redemption_aura(delay=[1, 2])
-                #if Config().general["info_screenshots"]: cv2.imwrite(f"./log/screenshots/info/info_check_deseis_dead" + seal_layout + "_" + time.strftime("%Y%m%d_%H%M%S") + ".png", grab())
-                ### LOOT ###
-                self._cs_pickit()
-
-            case "B2-U":
-                ### APPROACH ###
-                self._pather.traverse_nodes_fixed("dia_b2u_644_646", self) # We try to breaking line of sight, sometimes makes De Seis walk into the hammercloud. A better attack sequence here could make sense.
-                #self._pather.traverse_nodes_fixed("dia_b2u_seal_deseis", self) # We try to breaking line of sight, sometimes makes De Seis walk into the hammercloud. A better attack sequence here could make sense.
-                nodes = [646, 641]
-                ### ATTACK ###
-                Logger.debug(seal_layout + ": Attacking De Seis at position 1/{len(nodes)+1}")
-                self._cs_attack_sequence(min_duration=atk_dur_min, max_duration=atk_dur_max)
-                for i, node in enumerate(nodes):
-                    Logger.debug(f"{seal_layout}: Attacking De Seis at position {i+2}/{len(nodes)+1}")
-                    self._pather.traverse_nodes([node], self, timeout=3)
-                    self._cs_attack_sequence(min_duration=2, max_duration=atk_dur_max)
-                #if Config().general["info_screenshots"]: cv2.imwrite(f"./log/screenshots/info/info_check_deseis_dead" + seal_layout + "_" + time.strftime("%Y%m%d_%H%M%S") + ".png", grab())
-                ### LOOT ###
-                self._cs_pickit(skip_inspect=True)
-                if not self._pather.traverse_nodes([641], self): return False # , timeout=3):
-                if not self._pather.traverse_nodes([646], self): return False # , timeout=3):
-                self._cs_pickit(skip_inspect=True)
-                if not self._pather.traverse_nodes([646], self): return False # , timeout=3):
-                if not self._pather.traverse_nodes([640], self): return False # , timeout=3):
-                self._cs_pickit()
-
-            case _:
-                Logger.warning(seal_layout + ": Invalid location for kill_deseis("+ seal_layout +"), should not happen.")
-                return False
-        return True
-
-
-    def kill_infector(self, seal_layout:str) -> bool:
-        atk_dur_min = Config().char["atk_len_diablo_infector"]
-        atk_dur_max = atk_dur_min * 3
-        match seal_layout:
-            case "C1-F":
-                ### APPROACH ###
-                ### ATTACK ###
-                Logger.debug(seal_layout + ": Attacking Infector at position 1/1")
-                self._cs_attack_sequence(min_duration=atk_dur_min, max_duration=atk_dur_max)
-                self._pather.traverse_nodes_fixed("dia_c1f_652", self)
-                Logger.debug(seal_layout + ": Attacking Infector at position 2/2")
-                self._cs_attack_sequence(min_duration=2, max_duration=atk_dur_max)
-                ### LOOT ###
-                self._cs_pickit()
-
-            case "C2-G":
-                ### APPROACH ###
-                if not self._pather.traverse_nodes([665], self): return False # , timeout=3):
-                ### ATTACK ###
-                Logger.debug(seal_layout + ": Attacking Infector at position 1/2")
-                self._cs_attack_sequence(min_duration=atk_dur_min, max_duration=atk_dur_max)
-                if not self._pather.traverse_nodes([663], self): return False # , timeout=3):
-                Logger.debug(seal_layout + ": Attacking Infector at position 2/2")
-                self._cs_attack_sequence(min_duration=2, max_duration=atk_dur_max)
-                ### LOOT ###
-                self._cs_pickit()
-
-            case _:
-                Logger.warning(seal_layout + ": Invalid location for kill_infector("+ seal_layout +"), should not happen.")
-                return False
-        return True
-
-
-    #no aura effect on dia. not good for mob detection
-    def kill_diablo(self) -> bool:
-        ### APPROACH ###
-        ### ATTACK ###
-        atk_len_dur = float(Config().char["atk_len_diablo"])
-        Logger.debug("Attacking Diablo at position 1/1")
-        diablo_abs = [100,-100] #hardcoded dia pos.
-        self._generic_foh_attack_sequence(default_target_abs=diablo_abs, min_duration=atk_len_dur, max_duration=atk_len_dur*3, aura="concentration", foh_to_holy_bolt_ratio=2)
-        self._activate_cleanse_redemption()
-        ### LOOT ###
-        #self._cs_pickit()
-        return True
-
-
-    ####### AUTOMAP #########
+    
     def kill_vizier_automap(self, seal_layout:str) -> bool:
         atk_dur_min = Config().char["atk_len_diablo_vizier"]
         atk_dur_max = atk_dur_min * 3
@@ -443,6 +302,7 @@ class FoHdin(Paladin):
                 Logger.warning(seal_layout + ": Invalid location for kill_vizier("+ seal_layout +"), should not happen.")
                 return False
         return True
+
 
     def kill_deseis_automap(self, seal_layout:str) -> bool:
         atk_dur_min = Config().char["atk_len_diablo_deseis"]
@@ -466,6 +326,7 @@ class FoHdin(Paladin):
                 return False
         return True
 
+
     def kill_infector_automap(self, seal_layout:str) -> bool:
         atk_dur_min = Config().char["atk_len_diablo_infector"]
         atk_dur_max = atk_dur_min * 3
@@ -485,4 +346,17 @@ class FoHdin(Paladin):
             case _:
                 Logger.warning(seal_layout + ": Invalid location for kill_infector("+ seal_layout +"), should not happen.")
                 return False
+        return True
+
+
+    def kill_diablo(self) -> bool: #dia cannot be frozen, but be poisoned, so can be identified by mob detection!
+        ### APPROACH ###
+        ### ATTACK ###
+        atk_len_dur = float(Config().char["atk_len_diablo"])
+        Logger.debug("Attacking Diablo at position 1/1")
+        diablo_abs = [100,-100] #hardcoded dia pos.
+        self._generic_foh_attack_sequence(default_target_abs=diablo_abs, min_duration=atk_len_dur, max_duration=atk_len_dur*3, aura="concentration", foh_to_holy_bolt_ratio=2)
+        self._activate_cleanse_redemption()
+        ### LOOT ###
+        #self._cs_pickit()
         return True
