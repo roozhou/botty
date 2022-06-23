@@ -278,7 +278,7 @@ class Pather:
             1522: {'DIA_AM_CS': (591, -254), 'DIA_AM_E_A': (340, -102), 'DIA_AM_E_B': (340, -102)},  # cs hall3 lower 
             1523: {'DIA_AM_E_A': (406, -116), 'DIA_AM_E_B': (406, -116)}, # cs hall3 lower -> reveal cr4 template
             1524: {'DIA_AM_CR4': (-55, -62), 'DIA_AM_E_A': (372, -146),'DIA_AM_E_B': (372, -146),},  # cs hall3 center almost reveal pent - 
-            1525: {'DIA_AM_CR4': (-111, -97), 'DIA_AM_E_A': (316, -111),'DIA_AM_E_B': (316, -111),}, # cs hall3 center almost reveal CR1 template
+            1525: {'DIA_AM_PENT': (-96, 4), 'DIA_AM_E_A': (328, -180),'DIA_AM_E_B': (328, -180),}, # cs hall3 center almost reveal CR1 template #'DIA_AM_CR4': (-111, -97),
             
             # CS Trash A (1529, 1627, 1620)
             1526: {'DIA_AM_CR1': (70, -30)},    # pent - trash A center
@@ -354,7 +354,7 @@ class Pather:
             1645: {'DIA_AM_PENT': (312, 128)}, # C2G FAKE SEAL
             1646: {'DIA_AM_PENT': (258, 168)}, # C2G BOSS SEAL
             1647: {'DIA_AM_PENT': (312, 160)}, # C2G Fight Infector - a bit more in center
-            1648: {'DIA_AM_PENT': (270, 110),},# C2G ACCESS (used for walking traverse)
+            1648: {'DIA_AM_PENT': (270, 110),},# C2G ACCESS (used for walking traverse) #DOES NOT WORK FOR C1F
             1649: {}, #not used
 
             ########################
@@ -889,7 +889,7 @@ if __name__ == "__main__":
     #pather.traverse_nodes_automap(nodes3, char, toggle_map=True) 
     #pather.traverse_nodes_automap(nodes4, char, toggle_map=True) 
 
-    nodes = 1640
+    nodes = 1644
     #pather.traverse_nodes([nodes], char) #use this function to test nodes
     pather.traverse_nodes_automap([nodes], char, toggle_map=True) 
     

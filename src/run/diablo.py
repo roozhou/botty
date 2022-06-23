@@ -45,7 +45,7 @@ class Diablo:
             Logger.debug(seal_layout + ": trying to open (try #" + str(i+1)+")")
             self._char.select_by_template(seal_closedtemplates, threshold=0.5, timeout=0.1, telekinesis=True)
             wait(i*1)
-            found = template_finder.search_and_wait(seal_opentemplates, threshold=0.75, timeout=0.1).valid
+            found = template_finder.search_and_wait(seal_opentemplates, threshold=0.7, timeout=0.1).valid #threshold down from 0.75
             if found:
                 Logger.info(seal_layout +": is open - "+'\033[92m'+" open"+'\033[0m')
                 break
@@ -191,6 +191,9 @@ class Diablo:
         if Config().char["dia_kill_trash"]:
 
             if Config().char["safer_routines"]: #go back to clear mobs up to entrance to avoid leechers getting smacked by stray mobs in hardcore
+                
+                Logger.debug("ROF: Clearing around the TP to make it more safe for leechers (safer_routines=1)")
+
                 if not self._pather.traverse_nodes_automap([1500], self._char): return False
                 Logger.debug("CS TRASH: Killing Trash at: outside_cs")
                 self._char.dia_kill_trash("outside_cs")
@@ -770,7 +773,7 @@ class Diablo:
             Logger.debug("CS TRASH: Killing Trash at: trash_to_c3")
             self._char.dia_kill_trash("trash_to_c3")
 
-            if not self._pather.traverse_nodes_automap([1648], self._char): return False # cs pickit
+            if not self._pather.traverse_nodes_automap([1644], self._char): return False # cs pickit #old 1648 was bad node, replaced with 1644
             Logger.debug("CS TRASH: Killing Trash at: approach_c2g")
             self._char.dia_kill_trash("approach_c2g")
 
@@ -902,8 +905,6 @@ class Diablo:
                     self._char.dia_kill_trash(seal_layout + "_02")
                     Logger.debug(seal_layout + "_03: Kill trash")
                     self._char.dia_kill_trash(seal_layout + "_03")
-
-                    #Trash Pent to C LC = [1534, 1535, 1536, 1648, 1645, 1640]
 
                 #SEAL
                 toggle_automap(False) # just to be safe
