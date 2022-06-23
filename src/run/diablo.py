@@ -11,7 +11,7 @@ import template_finder
 from town.town_manager import TownManager, A4
 from utils.misc import cut_roi, wait
 from utils.custom_mouse import mouse
-from screen import convert_abs_to_monitor, convert_monitor_to_screen, grab
+from screen import convert_abs_to_monitor, convert_abs_to_screen, convert_monitor_to_screen, grab
 from ui_manager import detect_screen_object, ScreenObjects
 from ui import skills, loading, waypoint
 from inventory import belt, personal
@@ -85,7 +85,7 @@ class Diablo:
         waypoint.use_wp("River of Flame")
         return Location.A4_DIABLO_WP
 
-      
+
     def battle(self, do_pre_buff: bool) -> bool | tuple[Location, bool]:
         self._picked_up_items = False
         self.used_tps = 0
@@ -95,35 +95,25 @@ class Diablo:
         # WP to PENT #
         ##############
         
-        if not self._pather.traverse_nodes_automap([1600], self._char): return False #not using automap works better here
-        Logger.debug("ROF: Calibrated at WAYPOINT")
-
         #Teleport directly
         if self._char.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed("dia_wp_cs-e", self._char) #Traverse River of Flame (no chance to traverse w/o fixed, there is no reference point between WP & CS Entrance) - minimum 3 teleports are needed, if we only cross the gaps (maybe loop template matching the gap, otherwise walking), otherwise its 9
 
         #Traverse ROF with minimal teleport charges
-        elif self._char.capabilities.can_teleport_with_charges:
+        elif not self._char.run_to_cs() and self._char.capabilities.can_teleport_with_charges:
             Logger.debug("ROF: Let's run to the ROF diving board!")
-            
-            toggle_automap(True) #just in case
-            count = 0
-            while not template_finder.search_and_wait(["DIA_AM_CS"], threshold=0.8, timeout=0.2).valid and count < 9: # check1 using primary templates
-                Logger.debug("ROF: Teleporting towards CS Entrance, searching for CS Entrance")
-                pos_m = convert_abs_to_monitor((620, -350))
-                mouse.move(*pos_m, randomize=0, delay_factor=[0.5, 0.7])
-                skills.select_tp(Config().char["teleport"])
-                mouse.click(button="right")
-                wait(0.3,0.4)
-                count =+ 1
+
+            pos_m = convert_abs_to_monitor((620, -350))
+            self._char.walk(pos_m, force_move=True) # walk away from wp
+            # go to the first jumping spot at ROF
+            if not self._pather.traverse_nodes_automap([1601, 1602], self._char, timeout=2, force_move=True): return False
+            path_to_cs_entrance = [convert_abs_to_screen((620, -350))] * 7
+            self._pather.traverse_nodes_fixed(path_to_cs_entrance, self._char)
+
             """
             # Minimal Teleport Charge Version, too hacky.
-            if not self._pather.traverse_nodes_automap([1601], self._char): return False # Dodge Tyrael so we dont get stuck in a chat with that guy.
-            if not self._pather.traverse_nodes_automap([1602], self._char): return False # go to the first jumping spot at ROF
 
-            toggle_automap(True) #just in case
             Logger.debug("ROF: Teleporting across GAP1")
-            pos_m = convert_abs_to_monitor((620, -350))
             mouse.move(*pos_m, randomize=0, delay_factor=[0.5, 0.7])
             skills.select_tp(Config().char["teleport"])
             mouse.click(button="right")
