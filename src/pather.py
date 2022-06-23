@@ -533,7 +533,7 @@ class Pather:
             error_msg = "Teleport is required for static pathing"
             Logger.error(error_msg)
             raise ValueError(error_msg)
-        char.pre_move()
+        char.select_tp()
         if type(key) == str:
             path = Config().path[key]
         else:
