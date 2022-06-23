@@ -332,8 +332,8 @@ class Diablo:
         templates_confirmation= ["DIA_AM_A1L"]
         confirmation_node= None 
         confirmation_node2=None
-        threshold_confirmation= 0.8
-        threshold_confirmation2= 0.8
+        threshold_confirmation= 0.6
+        threshold_confirmation2= 0.75
   
         ###############
         # PREPARATION #
@@ -531,7 +531,7 @@ class Diablo:
         templates_confirmation= ["DIA_AM_B2U"]
         confirmation_node=[1630] 
         confirmation_node2=None
-        threshold_confirmation= 0.75
+        threshold_confirmation= 0.65
         threshold_confirmation2= 0.75
 
         ###############
@@ -738,7 +738,7 @@ class Diablo:
         templates_confirmation= ["DIA_AM_C1F"]
         confirmation_node= None 
         confirmation_node2=None
-        threshold_confirmation= 0.75
+        threshold_confirmation= 0.65
         threshold_confirmation2= 0.75
 
         ###############
