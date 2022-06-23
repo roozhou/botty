@@ -346,7 +346,7 @@ class Pather:
             1639: {}, #not used
 
             # SEAL C 
-            1640: {'DIA_AM_PENT': (320, 158)}, # Calibration & Departure Node Seal C
+            1640: {'DIA_AM_PENT': (320, 158), 'DIA_AM_CR4': (317, 59)}, # Calibration & Departure Node Seal C
             1641: {'DIA_AM_PENT': (320, 130)}, # C1F FAKE SEAL
             1642: {'DIA_AM_PENT': (208, 148)}, # C1F BOSS SEAL
             1643: {'DIA_AM_PENT': (252, 154)}, # Fight Infector C1F
@@ -400,7 +400,7 @@ class Pather:
             (Location.A1_AKARA, Location.A1_CHARSI): [707, 706, 705, 702, 703, 704],
             (Location.A1_AKARA, Location.A1_WP_NORTH): [707, 706, 705, 702],
             (Location.A1_AKARA, Location.A1_WP_SOUTH): [707, 706, 706],
-            (Location.A1_AKARA, Location.A1_WP_SOUTH): [707, 706, 701, 709],
+            (Location.A1_AKARA, Location.A1_WP): [707, 706, 701, 709],
             (Location.A1_WP_SOUTH, Location.A1_WP_NORTH): [702],
             #from town portal
             (Location.A1_TOWN_TP, Location.A1_KASHYA_CAIN): [708, 700],
@@ -889,9 +889,9 @@ if __name__ == "__main__":
     #pather.traverse_nodes_automap(nodes3, char, toggle_map=True) 
     #pather.traverse_nodes_automap(nodes4, char, toggle_map=True) 
 
-    nodes = 709
+    nodes = 1640
     #pather.traverse_nodes([nodes], char) #use this function to test nodes
-    #pather.traverse_nodes_automap([nodes], char, toggle_map=True) 
+    pather.traverse_nodes_automap([nodes], char, toggle_map=True) 
     
     if Config().general["use_automap_navigation"] == 1 :
         while True:
@@ -900,7 +900,6 @@ if __name__ == "__main__":
             #print("1" + str(nodes) + ": {")
             print(str(nodes) + ": {")
             #print("xxx: {")
-            """
             show_automap_pos(["DIA_AM_WP"])
             show_automap_pos(["DIA_AM_CS"])
             show_automap_pos(["DIA_AM_E_B"])
@@ -918,11 +917,10 @@ if __name__ == "__main__":
             show_automap_pos(["DIA_AM_A1L"])
             show_automap_pos(["DIA_AM_B1S"])
             show_automap_pos(["DIA_AM_C1F"])
-            """
-            show_automap_pos(["A1_TOWN_AUTOMAP_AKARA"])
-            show_automap_pos(["A1_TOWN_AUTOMAP_GHEED"])
-            show_automap_pos(["A1_TOWN_AUTOMAP_CHARSI"])
-            show_automap_pos(["A1_TOWN_AUTOMAP_WP"])
+            #show_automap_pos(["A1_TOWN_AUTOMAP_AKARA"])
+            #show_automap_pos(["A1_TOWN_AUTOMAP_GHEED"])
+            #show_automap_pos(["A1_TOWN_AUTOMAP_CHARSI"])
+            #show_automap_pos(["A1_TOWN_AUTOMAP_WP"])
             print("    },")
             toggle_automap(False)
             nodes = nodes + 1        

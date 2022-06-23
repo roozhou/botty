@@ -305,13 +305,15 @@ class Diablo:
         if not self._pather.traverse_nodes_automap([1610], self._char): return False # calibrate at Pentagram
         Logger.info("CS: Calibrated at PENTAGRAM")
 
-        #make leecher TP
         if Config().char["dia_leecher_tp_pent"]:
+            if not self._pather.traverse_nodes_automap([1522], self._char): return False # go a bit into hall3, so that the TP does not obscure our pentagram template with a yellow automap marker.
             Logger.debug("CS: OPEN LEECHER TP AT ENTRANCE")
             self._char.dia_kill_trash("pent_before_a")
             if not skills.has_tps(): Logger.warning("CS: failed to open TP, you should buy new TPs!")
             mouse.click(button="right")
+            if not self._pather.traverse_nodes_automap([1610], self._char): return False # calibrate at Pentagram
 
+        """
         ##########
         # Seal A #
         ##########
@@ -717,7 +719,7 @@ class Diablo:
                 toggle_automap(True)
                 if Config().general["info_screenshots"]: cv2.imwrite(f"./log/screenshots/info/info_" + seal_layout2 + "_LC_fail" + time.strftime("%Y%m%d_%H%M%S") + "automap.png", grab())
                 return False
-  
+        """
         ##########
         # Seal C #
         ##########
