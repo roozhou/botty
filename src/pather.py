@@ -346,7 +346,7 @@ class Pather:
             1639: {}, #not used
 
             # SEAL C 
-            1640: {'DIA_AM_PENT': (320, 158), 'DIA_AM_CR4': (317, 59)}, # Calibration & Departure Node Seal C
+            1640: {'DIA_AM_PENT': (320, 158), 'DIA_AM_CR4': (317, 59)}, # Calibration & Departure Node Seal C , 'DIA_AM_CR3': (156, 170)
             1641: {'DIA_AM_PENT': (320, 130)}, # C1F FAKE SEAL
             1642: {'DIA_AM_PENT': (208, 148)}, # C1F BOSS SEAL
             1643: {'DIA_AM_PENT': (252, 154)}, # Fight Infector C1F

@@ -189,27 +189,27 @@ class Diablo:
         #############################
 
         if Config().char["dia_kill_trash"]:
-            #Logger.debug("Kill Trash CS -> Pent not implemented yet")
 
-            if not self._pather.traverse_nodes_automap([1500], self._char): return False
-            Logger.debug("CS TRASH: Killing Trash at: outside_cs")
-            self._char.dia_kill_trash("outside_cs")
+            if Config().char["safer_routines"]: #go back to clear mobs up to entrance to avoid leechers getting smacked by stray mobs in hardcore
+                if not self._pather.traverse_nodes_automap([1500], self._char): return False
+                Logger.debug("CS TRASH: Killing Trash at: outside_cs")
+                self._char.dia_kill_trash("outside_cs")
 
-            if not self._pather.traverse_nodes_automap([1501], self._char): return False
-            Logger.debug("CS TRASH: Killing Trash at: outside_cs_stairs")
-            self._char.dia_kill_trash("outside_cs_stairs")
+                if not self._pather.traverse_nodes_automap([1501], self._char): return False
+                Logger.debug("CS TRASH: Killing Trash at: outside_cs_stairs")
+                self._char.dia_kill_trash("outside_cs_stairs")
 
-            if not self._pather.traverse_nodes_automap([1502], self._char): return False
-            Logger.debug("CS TRASH: Killing Trash at: aisle_1")
-            self._char.dia_kill_trash("aisle_1")
+                if not self._pather.traverse_nodes_automap([1502], self._char): return False
+                Logger.debug("CS TRASH: Killing Trash at: aisle_1")
+                self._char.dia_kill_trash("aisle_1")
 
-            if not self._pather.traverse_nodes_automap([1503], self._char): return False
-            Logger.debug("CS TRASH: Killing Trash at: aisle_2")
-            self._char.dia_kill_trash("aisle_2")
+                if not self._pather.traverse_nodes_automap([1503], self._char): return False
+                Logger.debug("CS TRASH: Killing Trash at: aisle_2")
+                self._char.dia_kill_trash("aisle_2")
 
-            if not self._pather.traverse_nodes_automap([1504], self._char): return False
-            Logger.debug("CS TRASH: Killing Trash at: aisle_3")
-            self._char.dia_kill_trash("aisle_3")
+                if not self._pather.traverse_nodes_automap([1504], self._char): return False
+                Logger.debug("CS TRASH: Killing Trash at: aisle_3")
+                self._char.dia_kill_trash("aisle_3")
 
             if not self._pather.traverse_nodes_automap([1505], self._char): return False
             Logger.debug("CS TRASH: Killing Trash at: aisle_4")
@@ -313,7 +313,7 @@ class Diablo:
             mouse.click(button="right")
             if not self._pather.traverse_nodes_automap([1610], self._char): return False # calibrate at Pentagram
 
-        """
+        
         ##########
         # Seal A #
         ##########
@@ -719,7 +719,7 @@ class Diablo:
                 toggle_automap(True)
                 if Config().general["info_screenshots"]: cv2.imwrite(f"./log/screenshots/info/info_" + seal_layout2 + "_LC_fail" + time.strftime("%Y%m%d_%H%M%S") + "automap.png", grab())
                 return False
-        """
+        
         ##########
         # Seal C #
         ##########
