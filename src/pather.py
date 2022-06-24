@@ -346,7 +346,7 @@ class Pather:
             1639: {}, #not used
 
             # SEAL C 
-            1640: {'DIA_AM_PENT': (320, 158), 'DIA_AM_CR4': (317, 59)}, # Calibration & Departure Node Seal C , 'DIA_AM_CR3': (156, 170)
+            1640: {'DIA_AM_PENT': (320, 158), 'DIA_AM_CR1': (484, 166),}, # Calibration & Departure Node Seal C , 'DIA_AM_CR3': (156, 170) #'DIA_AM_CR4': (317, 59)
             1641: {'DIA_AM_PENT': (320, 130)}, # C1F FAKE SEAL
             1642: {'DIA_AM_PENT': (208, 148)}, # C1F BOSS SEAL
             1643: {'DIA_AM_PENT': (252, 154)}, # Fight Infector C1F
@@ -889,7 +889,7 @@ if __name__ == "__main__":
     #pather.traverse_nodes_automap(nodes3, char, toggle_map=True) 
     #pather.traverse_nodes_automap(nodes4, char, toggle_map=True) 
 
-    nodes = 1644
+    nodes = 1640
     #pather.traverse_nodes([nodes], char) #use this function to test nodes
     pather.traverse_nodes_automap([nodes], char, toggle_map=True) 
     
