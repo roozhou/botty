@@ -498,11 +498,15 @@ class Diablo:
                 Logger.info(seal_layout +": Starting to pop seals")
                 if not self._pather.traverse_nodes_automap(node_seal1_automap, self._char): return False # Calibrate at Fake seal 
                 if not self._sealdance(seal1_opentemplates, seal1_closedtemplates, seal_layout + ": Seal1", node_seal1_automap): return False # Open Fake seal
+                if self._char.capabilities.can_teleport_with_charges:
+                    if not self._pather.traverse_nodes_automap([1627], self._char): return False # take a sidestep to not get stuck
                 if not self._pather.traverse_nodes_automap(node_seal2_automap, self._char): return False # Calibrate at Boss seal 
                 if not self._sealdance(seal2_opentemplates, seal2_closedtemplates, seal_layout + ": Seal2", node_seal2_automap): return False # Open Boss seal
                 Logger.debug(seal_layout + ": Kill Boss A (Vizier)")
                 self._char.kill_vizier_automap(seal_layout)
                 Logger.debug(seal_layout + ": Traversing back to Pentagram")
+                if self._char.capabilities.can_teleport_with_charges:
+                    if not self._pather.traverse_nodes_automap([1627], self._char): return False # take a sidestep to not get stuck
                 if not self._pather.traverse_nodes_automap([1610], self._char): return False
                 Logger.info(seal_layout + ": finished seal & calibrated at PENTAGRAM")
                 
@@ -909,13 +913,15 @@ class Diablo:
                 #SEAL
                 toggle_automap(False) # just to be safe
                 Logger.info(seal_layout +": Starting to pop seals")
-                if not self._pather.traverse_nodes_automap(node_seal1_automap, self._char): return False
+                if not self._pather.traverse_nodes_automap(node_seal1_automap, self._char, use_tp_charge=True): return False
                 if not self._sealdance(seal1_opentemplates, seal1_closedtemplates, seal_layout + ": Seal1", node_seal1_automap): return False
-                if not self._pather.traverse_nodes_automap(node_seal2_automap, self._char): return False
+                if not self._pather.traverse_nodes_automap(node_seal2_automap, self._char, use_tp_charge=True): return False
                 if not self._sealdance(seal2_opentemplates, seal2_closedtemplates, seal_layout + ": Seal2", node_seal2_automap): return False
                 Logger.debug(seal_layout + ": Kill Boss C (Infector)")
                 self._char.kill_infector_automap(seal_layout)
                 Logger.debug(seal_layout + ": Traversing back to Pentagram")
+                if self._char.capabilities.can_teleport_with_charges:
+                    if not self._pather.traverse_nodes_automap([1645], self._char): return False # take a sidestep to not get stuck
                 if not self._pather.traverse_nodes_automap([1610], self._char): return False
                 Logger.info(seal_layout + ": finished seal & calibrated at PENTAGRAM")
 
