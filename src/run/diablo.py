@@ -40,12 +40,12 @@ class Diablo:
         
     def _sealdance(self, seal_opentemplates: list[str], seal_closedtemplates: list[str], seal_layout: str, seal_node: str) -> bool:
         i = 0
-        while i < 4:
+        while i < 8:
             if Config().general["use_automap_navigation"] == 1 : toggle_automap(False) # just to ensure we switch off Automap, so it does not interfere with sealcheck
             Logger.debug(seal_layout + ": trying to open (try #" + str(i+1)+")")
             self._char.select_by_template(seal_closedtemplates, threshold=0.5, timeout=0.1, telekinesis=True)
             wait(i*1)
-            found = template_finder.search_and_wait(seal_opentemplates, threshold=0.7, timeout=0.1).valid #threshold down from 0.75
+            found = template_finder.search_and_wait(seal_opentemplates, threshold=0.7, timeout=0.1).valid
             if found:
                 Logger.info(seal_layout +": is open - "+'\033[92m'+" open"+'\033[0m')
                 break
