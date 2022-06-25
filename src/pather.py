@@ -889,9 +889,11 @@ if __name__ == "__main__":
     #pather.traverse_nodes_automap(nodes3, char, toggle_map=True) 
     #pather.traverse_nodes_automap(nodes4, char, toggle_map=True) 
 
-    nodes = 1640
+    #nodes = 1525
+    nodes2 = 1529
     #pather.traverse_nodes([nodes], char) #use this function to test nodes
-    pather.traverse_nodes_automap([nodes], char, toggle_map=True) 
+    #pather.traverse_nodes_automap([nodes], char, toggle_map=True) 
+    pather.traverse_nodes_automap([nodes2], char, toggle_map=True) 
     
     if Config().general["use_automap_navigation"] == 1 :
         while True:
