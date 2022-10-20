@@ -132,10 +132,10 @@ class Nihlathak:
             end_nodes: list[int]
 
         check_arr = [
-            EyeCheckData("ni2_a_safe_dist", [(84, 710)] * 3, "ni2_circle_a", [2500], [501]),
-            EyeCheckData("ni2_b_safe_dist", [(1267, 595)] * 4, "ni2_circle_b", [2505], [506]),
-            EyeCheckData("ni2_c_safe_dist", [(1267, 13)] * 4, "ni2_circle_c", [2510], [511]),
-            EyeCheckData("ni2_d_safe_dist", [(65, 10)] * 3, "ni2_circle_d", [2515], [516, 517]),
+            EyeCheckData("ni2_a_safe_dist", [(84, 710)] * 3, "ni2_circle_a", [500], [501]),
+            EyeCheckData("ni2_b_safe_dist", [(1267, 595)] * 4, "ni2_circle_b", [505], [506]),
+            EyeCheckData("ni2_c_safe_dist", [(1267, 13)] * 4, "ni2_circle_c", [510], [511]),
+            EyeCheckData("ni2_d_safe_dist", [(65, 10)] * 3, "ni2_circle_d", [515], [516, 517]),
         ]
 
         self._pather.traverse_nodes_fixed([(1270,10), (270,148), (120,670)], self._char)

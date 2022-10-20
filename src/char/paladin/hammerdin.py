@@ -25,7 +25,7 @@ class Hammerdin(Paladin):
         self._pather.offset_node(149, (70, 10)) # THIS NODE NODE LONGER EXISTS FOR AUTMAP CHARS
         self._pather.offset_node(1149, (70, 10)) # not sure this node has to be offset for automap, keeping it to be safe
         self._pather.offset_node(122, (-50, 150))
-        self._pather.offset_node(188, (-100, 100))
+        self._pather.offset_node(1122, (-100, 100))
         #custom color filter for travincil
         self._trav_filters = [
             {"erode": 1, "blur": 3, "lh": 0, "ls": 0, "lv": 200, "uh": 0, "us": 255, "uv": 255}, # council's red lightning
